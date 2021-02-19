@@ -2,6 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>ConfigurationVariables</key>
+	<dict>
+		<key>PkmnDexBaseURL</key>
+		<string>$(PKMN_BASE_URL)</string>
+		<key>ArtworkBaseURL</key>
+		<string>$(ARTWORK_BASE_URL)</string>
+	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
