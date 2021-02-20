@@ -18,8 +18,13 @@ class BaseService<T: TargetType> {
             provider = MoyaProvider<T>(plugins: [NetworkLoggerPlugin(verbose: true)])
         case .stubResponse:
             provider = MoyaProvider<T>(stubClosure: {(_: T) -> Moya.StubBehavior in return .immediate})
-        default:
-            provider = MoyaProvider<T>()
+        case .stubWithDelay(let delay):
+            provider = MoyaProvider<T>(stubClosure: {(_: T) -> Moya.StubBehavior in return .delayed(seconds: delay)}, plugins: [])
+        case .stubWithError(let statusCode, let data):
+            provider = MoyaProvider<T>(endpointClosure: StubResponseManager<T>.createEndpointClosure(statusCode: statusCode,
+                                                                                                     data: data),
+                                       stubClosure: {(_: T) -> Moya.StubBehavior in return .immediate},
+                                       plugins: [])
         }
     }
 }

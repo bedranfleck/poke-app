@@ -11,6 +11,10 @@ struct DexPage: Codable {
     let count: Int?
     let next, previous: String?
     let results: [PokemonBasicInfo]?
+    
+    func hasNextPage() -> Bool {
+        return next != nil
+    }
 }
 
 struct PokemonBasicInfo: Codable {
