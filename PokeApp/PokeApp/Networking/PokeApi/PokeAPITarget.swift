@@ -15,7 +15,7 @@ enum PokeAPITarget {
 extension PokeAPITarget: TargetType {
     var baseURL: URL {
         guard let url = Environment.dexBaseURL else {
-            fatalError("Could not retrieve baseURL value for National Dex")
+            fatalError("Could not retrieve baseURL value for PokeAPI")
         }
         return url
     }
@@ -35,7 +35,12 @@ extension PokeAPITarget: TargetType {
     }
     
     var sampleData: Data {
-        return Data()
+        switch self {
+        case .loadPage(_):
+            return Bundle.loadJSONFromBundle(resourceName: "dashboard-mock")
+        case .loadPokemon(_):
+            return Bundle.loadJSONFromBundle(resourceName: "pokemon-mock")
+        }
     }
     
     var task: Task {

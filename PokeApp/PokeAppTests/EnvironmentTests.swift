@@ -35,5 +35,9 @@ class EnvironmentTests: XCTestCase {
         let headers = Environment.defaultHeaders
         expect(headers).toNot(beEmpty())
     }
+    
+    func testAppCanCorrectlyIdentifyItIsRunningTests() {
+        expect(Environment.isRunningUnitTests()).to(beTruthy())
+    }
 
 }

@@ -27,6 +27,9 @@
 		5B83B46025E09A7300104026 /* PokeApiTargetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B83B45F25E09A7300104026 /* PokeApiTargetTests.swift */; };
 		5B83B48C25E0A49500104026 /* BaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B83B48B25E0A49500104026 /* BaseAPI.swift */; };
 		5B83B49125E0A51400104026 /* NetworkOperationMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B83B49025E0A51400104026 /* NetworkOperationMode.swift */; };
+		5B83B49725E0A8AE00104026 /* dashboard-mock.json in Resources */ = {isa = PBXBuildFile; fileRef = 5B83B49625E0A8AE00104026 /* dashboard-mock.json */; };
+		5B83B49F25E0A8C600104026 /* pokemon-mock.json in Resources */ = {isa = PBXBuildFile; fileRef = 5B83B49E25E0A8C600104026 /* pokemon-mock.json */; };
+		5B83B4A425E0AA3800104026 /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B83B4A325E0AA3800104026 /* Bundle+Extensions.swift */; };
 		7C5AAA3C5440A693FC6BEF83 /* Pods_PokeAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A70909385E43BD06D10A8719 /* Pods_PokeAppTests.framework */; };
 		9614ACFEBD7A6A0FAC79DF1E /* Pods_PokeApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B38D17F768F8B053FDCB14B /* Pods_PokeApp.framework */; };
 /* End PBXBuildFile section */
@@ -79,6 +82,9 @@
 		5B83B45F25E09A7300104026 /* PokeApiTargetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeApiTargetTests.swift; sourceTree = "<group>"; };
 		5B83B48B25E0A49500104026 /* BaseAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAPI.swift; sourceTree = "<group>"; };
 		5B83B49025E0A51400104026 /* NetworkOperationMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkOperationMode.swift; sourceTree = "<group>"; };
+		5B83B49625E0A8AE00104026 /* dashboard-mock.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "dashboard-mock.json"; sourceTree = "<group>"; };
+		5B83B49E25E0A8C600104026 /* pokemon-mock.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "pokemon-mock.json"; sourceTree = "<group>"; };
+		5B83B4A325E0AA3800104026 /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
 		5D430EBCD94730423EEBB1B9 /* Pods-PokeApp-PokeAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PokeApp-PokeAppUITests.release.xcconfig"; path = "Target Support Files/Pods-PokeApp-PokeAppUITests/Pods-PokeApp-PokeAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		8B38D17F768F8B053FDCB14B /* Pods_PokeApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PokeApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2FFAE6BB072FCA4674C5971 /* Pods_PokeApp_PokeAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PokeApp_PokeAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -194,10 +200,9 @@
 		5B83B40A25DF57FD00104026 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				5B83B42025E07BF100104026 /* Environment.swift */,
-				5B83B45425E0916B00104026 /* PokeAPITarget.swift */,
-				5B83B48B25E0A49500104026 /* BaseAPI.swift */,
-				5B83B49025E0A51400104026 /* NetworkOperationMode.swift */,
+				5B83B4A825E0ACCF00104026 /* Configuration */,
+				5B83B49525E0A87100104026 /* Mock Data */,
+				5B83B4A925E0AD0F00104026 /* PokeApi */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -207,6 +212,7 @@
 			children = (
 				5B83B40C25E0714700104026 /* DefaultConfiguration.xcconfig */,
 				5B83B41625E0743C00104026 /* Configuration.swift */,
+				5B83B4A325E0AA3800104026 /* Bundle+Extensions.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -236,6 +242,33 @@
 			children = (
 			);
 			path = "Pokemon Detail";
+			sourceTree = "<group>";
+		};
+		5B83B49525E0A87100104026 /* Mock Data */ = {
+			isa = PBXGroup;
+			children = (
+				5B83B49625E0A8AE00104026 /* dashboard-mock.json */,
+				5B83B49E25E0A8C600104026 /* pokemon-mock.json */,
+			);
+			path = "Mock Data";
+			sourceTree = "<group>";
+		};
+		5B83B4A825E0ACCF00104026 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				5B83B49025E0A51400104026 /* NetworkOperationMode.swift */,
+				5B83B48B25E0A49500104026 /* BaseAPI.swift */,
+				5B83B42025E07BF100104026 /* Environment.swift */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		5B83B4A925E0AD0F00104026 /* PokeApi */ = {
+			isa = PBXGroup;
+			children = (
+				5B83B45425E0916B00104026 /* PokeAPITarget.swift */,
+			);
+			path = PokeApi;
 			sourceTree = "<group>";
 		};
 		F6CE89AAD54BA0B83CB469EB /* Pods */ = {
@@ -361,6 +394,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B83B3B925DF45CC00104026 /* Assets.xcassets in Resources */,
+				5B83B49F25E0A8C600104026 /* pokemon-mock.json in Resources */,
+				5B83B49725E0A8AE00104026 /* dashboard-mock.json in Resources */,
 				5B83B40525DF4A4300104026 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -519,6 +554,7 @@
 				5B83B48C25E0A49500104026 /* BaseAPI.swift in Sources */,
 				5B83B44625E08A0600104026 /* ViewModel.swift in Sources */,
 				5B83B43E25E0891600104026 /* DashboardCoordinator.swift in Sources */,
+				5B83B4A425E0AA3800104026 /* Bundle+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

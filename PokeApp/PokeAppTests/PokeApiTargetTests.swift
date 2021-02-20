@@ -54,7 +54,7 @@ class PokeApiTargetTests: XCTestCase {
     }
     
     func testPathIsCorrectlyReturnedForPageTarget() {
-        if let pagePath = pkmnTarget?.path {
+        if let pagePath = pageTarget?.path {
             expect(pagePath).notTo(beEmpty())
             expect(pagePath).notTo(contain("\(pageNumber!)"))
         } else {
