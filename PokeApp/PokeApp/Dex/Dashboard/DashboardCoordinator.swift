@@ -9,8 +9,9 @@ import UIKit
 
 class DashboardCoordinator: Coordinator {
     private let window: UIWindow
-    private var dashboardViewModel = DashboardViewModel()
+    private lazy var dashboardViewModel = DashboardViewModel(pokeAPI: self.pokeAPI)
     private var rootViewController: UINavigationController?
+    private var pokeAPI = PokeAPI(pokeAPIService: PokeAPIService())
     
     init(window: UIWindow) {
         self.window = window
@@ -19,6 +20,7 @@ class DashboardCoordinator: Coordinator {
     
     func start() {
         let dashboardViewController = DashboardViewController(viewModel: dashboardViewModel)
+        pokeAPI.register(stateListener: dashboardViewController)
         rootViewController = UINavigationController(rootViewController: dashboardViewController)
         
         window.rootViewController = rootViewController

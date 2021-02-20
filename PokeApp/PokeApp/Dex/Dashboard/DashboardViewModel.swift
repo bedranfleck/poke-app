@@ -8,5 +8,9 @@
 import Foundation
 
 class DashboardViewModel: ViewModel {
+    private weak var pokeAPI: PokeAPI?
     
+    init(pokeAPI: PokeAPI?) {
+        self.pokeAPI = pokeAPI
+    }
 }

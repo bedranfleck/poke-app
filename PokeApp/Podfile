@@ -8,6 +8,7 @@ target 'PokeApp' do
   # Pods for PokeApp
   pod 'Moya'
   pod 'Kingfisher'
+  pod 'SnapKit'
 
   target 'PokeAppTests' do
     inherit! :search_paths
