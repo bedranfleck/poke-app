@@ -7,8 +7,8 @@
 
 import UIKit
 
-class BaseViewController<T>: UIViewController {
-    private(set) var viewModel: T
+class BaseViewController<T: ViewModel>: UIViewController {
+    private(set) weak var viewModel: T?
     
     init(viewModel: T) {
         self.viewModel = viewModel
