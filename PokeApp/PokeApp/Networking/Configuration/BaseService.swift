@@ -7,7 +7,7 @@
 
 import Moya
 
-class BaseAPI<T: TargetType> {
+class BaseService<T: TargetType> {
     internal var provider: MoyaProvider<T>
     
     /// Allows the application to run network operations with mock data when running tests without further configuration on test files.

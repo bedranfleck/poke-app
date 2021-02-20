@@ -54,10 +54,10 @@ enum NetworkOperationMode {
 extension NetworkOperationMode: Equatable {
     static func == (lhs: NetworkOperationMode, rhs: NetworkOperationMode) -> Bool {
         switch (lhs, rhs) {
-        case (let .stubWithDelay(delay1), let .stubWithDelay(delay2)):
-            return delay1 == delay2
-        case (let .stubWithError(code1, data1), let .stubWithError(code2, data2)):
-            return code1 == code2 && data1 == data2
+        case (let .stubWithDelay(leftDelay), let .stubWithDelay(rightDelay)):
+            return leftDelay == rightDelay
+        case (let .stubWithError(leftCode, leftData), let .stubWithError(rightCode, rightData)):
+            return leftCode == rightCode && leftData == rightData
         case (.stubResponse, .stubResponse), (.normal, .normal):
             return true
         default:
