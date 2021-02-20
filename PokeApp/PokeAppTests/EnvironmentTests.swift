@@ -25,5 +25,15 @@ class EnvironmentTests: XCTestCase {
         expect(artworkURL?.path).toNot(beNil())
         expect(artworkURL?.absoluteString).to(contain(Configuration.value(for: .artworkBaseURL)))
     }
+    
+    func testResultLimitIsGreaterThanZero() {
+        let resultLimit = Environment.dashboardResultLimit
+        expect(resultLimit).to(beGreaterThan(Int.zero))
+    }
+    
+    func testDefaultHeadersAreNotEmpty() {
+        let headers = Environment.defaultHeaders
+        expect(headers).toNot(beEmpty())
+    }
 
 }

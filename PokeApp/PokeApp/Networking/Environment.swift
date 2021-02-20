@@ -10,4 +10,6 @@ import Foundation
 class Environment {
     static let dexBaseURL = URL(string: "https://" + Configuration.value(for: .dexBaseURL))
     static let artworkBaseURL = URL(string: "https://" + Configuration.value(for: .artworkBaseURL))
+    static let dashboardResultLimit = 20
+    static let defaultHeaders: [String: String]? = ["accept": "*/*"]
 }

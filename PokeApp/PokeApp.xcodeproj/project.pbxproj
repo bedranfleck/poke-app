@@ -23,6 +23,8 @@
 		5B83B44625E08A0600104026 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B83B44525E08A0600104026 /* ViewModel.swift */; };
 		5B83B44B25E08AFD00104026 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B83B44A25E08AFD00104026 /* DashboardViewModel.swift */; };
 		5B83B45025E08B3D00104026 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B83B44F25E08B3D00104026 /* DashboardViewController.swift */; };
+		5B83B45525E0916B00104026 /* PokeAPITarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B83B45425E0916B00104026 /* PokeAPITarget.swift */; };
+		5B83B46025E09A7300104026 /* PokeApiTargetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B83B45F25E09A7300104026 /* PokeApiTargetTests.swift */; };
 		7C5AAA3C5440A693FC6BEF83 /* Pods_PokeAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A70909385E43BD06D10A8719 /* Pods_PokeAppTests.framework */; };
 		9614ACFEBD7A6A0FAC79DF1E /* Pods_PokeApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B38D17F768F8B053FDCB14B /* Pods_PokeApp.framework */; };
 /* End PBXBuildFile section */
@@ -71,6 +73,8 @@
 		5B83B44525E08A0600104026 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		5B83B44A25E08AFD00104026 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
 		5B83B44F25E08B3D00104026 /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
+		5B83B45425E0916B00104026 /* PokeAPITarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeAPITarget.swift; sourceTree = "<group>"; };
+		5B83B45F25E09A7300104026 /* PokeApiTargetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeApiTargetTests.swift; sourceTree = "<group>"; };
 		5D430EBCD94730423EEBB1B9 /* Pods-PokeApp-PokeAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PokeApp-PokeAppUITests.release.xcconfig"; path = "Target Support Files/Pods-PokeApp-PokeAppUITests/Pods-PokeApp-PokeAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		8B38D17F768F8B053FDCB14B /* Pods_PokeApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PokeApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2FFAE6BB072FCA4674C5971 /* Pods_PokeApp_PokeAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PokeApp_PokeAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -160,6 +164,7 @@
 				5B83B3C825DF45CD00104026 /* Info.plist */,
 				5B83B41B25E0766800104026 /* ConfigurationTests.swift */,
 				5B83B42B25E07D2A00104026 /* EnvironmentTests.swift */,
+				5B83B45F25E09A7300104026 /* PokeApiTargetTests.swift */,
 			);
 			path = PokeAppTests;
 			sourceTree = "<group>";
@@ -186,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				5B83B42025E07BF100104026 /* Environment.swift */,
+				5B83B45425E0916B00104026 /* PokeAPITarget.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -495,6 +501,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B83B41725E0743C00104026 /* Configuration.swift in Sources */,
+				5B83B45525E0916B00104026 /* PokeAPITarget.swift in Sources */,
 				5B83B42125E07BF100104026 /* Environment.swift in Sources */,
 				5B83B43225E0831100104026 /* Coordinator.swift in Sources */,
 				5B83B44B25E08AFD00104026 /* DashboardViewModel.swift in Sources */,
@@ -512,6 +519,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B83B41C25E0766800104026 /* ConfigurationTests.swift in Sources */,
+				5B83B46025E09A7300104026 /* PokeApiTargetTests.swift in Sources */,
 				5B83B42C25E07D2A00104026 /* EnvironmentTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
