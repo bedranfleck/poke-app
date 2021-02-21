@@ -7,24 +7,66 @@
 
 import UIKit
 
-class DashboardCoordinator: Coordinator {
+class DashboardCoordinator: NSObject, Coordinator {
     private let window: UIWindow
+    
     private lazy var dashboardViewModel = DashboardViewModel(pokeAPI: self.pokeAPI)
-    private var rootViewController: UINavigationController?
+    
+    private(set) var navigationController: UINavigationController?
+    private(set) var childCoordinators: [Coordinator] = []
+    
     private var pokeAPI = PokeAPI(pokeAPIService: PokeAPIService())
     
     init(window: UIWindow) {
         self.window = window
+        super.init()
         start()
     }
     
     func start() {
-        let dashboardViewController = DashboardViewController(viewModel: dashboardViewModel)
-        pokeAPI.register(stateListener: dashboardViewController)
-        rootViewController = UINavigationController(rootViewController: dashboardViewController)
+        let dashboardViewController = DashboardViewController(viewModel: dashboardViewModel, coordinator: self)
         
-        window.rootViewController = rootViewController
+        pokeAPI.register(stateListener: dashboardViewController)
+        navigationController = UINavigationController(rootViewController: dashboardViewController)
+        navigationController?.delegate = self
+        
+        window.rootViewController = navigationController
         window.makeKeyAndVisible()
     }
     
+    func didSelectPokemon() {
+        guard let navController = navigationController else {
+            fatalError("Lost reference to Navigation Controller")
+        }
+        let detailCoordinator = PokemonDetailCoordinator(navigationController: navController, pokeAPI: pokeAPI)
+        childCoordinators.append(detailCoordinator)
+        detailCoordinator.start()
+    }
+    
+    func childDidFinish(_ child: Coordinator?) {
+        for (index, coordinator) in childCoordinators.enumerated() {
+            if coordinator === child {
+                childCoordinators.remove(at: index)
+                break
+            }
+        }
+    }
+    
+}
+
+// This handles backwards navigation between coordinators sharing a common navigation controller
+extension DashboardCoordinator: UINavigationControllerDelegate {
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+        guard let fromController = navigationController.transitionCoordinator?.viewController(forKey: .from) else {
+            return
+        }
+        
+        if navigationController.viewControllers.contains(fromController) {
+            return
+        }
+        
+        if let pkmnDetailViewController = fromController as? PokemonDetailViewController {
+            childDidFinish(pkmnDetailViewController.coordinator)
+        }
+    }
 }

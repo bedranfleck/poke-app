@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 
-class DashboardViewController: BaseViewController<DashboardViewModel> {
+class DashboardViewController: BaseViewController<DashboardViewModel, DashboardCoordinator> {
 
     private lazy var tableView = UITableView(frame: .zero, style: .plain)
     
@@ -61,7 +61,7 @@ extension DashboardViewController: UITableViewDataSource, UITableViewDelegate {
         guard let viewModel = viewModel else {
             return
         }
-        if indexPath.row == viewModel.entryCount()-1 {
+        if indexPath.row == viewModel.entryCount()-1 && viewModel.entryCount() < DashboardViewModel.maxNumberOfEntries {
             viewModel.fetchNewDexPage()
         }
     }

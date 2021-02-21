@@ -7,11 +7,13 @@
 
 import UIKit
 
-class BaseViewController<T: ViewModel>: UIViewController {
+class BaseViewController<T: ViewModel, K: Coordinator>: UIViewController {
     private(set) weak var viewModel: T?
+    private(set) weak var coordinator: K?
     
-    init(viewModel: T) {
+    init(viewModel: T, coordinator: K) {
         self.viewModel = viewModel
+        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
     

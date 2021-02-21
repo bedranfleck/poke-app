@@ -5,8 +5,10 @@
 //  Created by André Felipe Fleck Bedran on 19/02/21.
 //
 
-import Foundation
+import UIKit
 
-protocol Coordinator {
+protocol Coordinator: class {
+    var navigationController: UINavigationController? { get }
+    var childCoordinators: [Coordinator] { get }
     func start()
 }
