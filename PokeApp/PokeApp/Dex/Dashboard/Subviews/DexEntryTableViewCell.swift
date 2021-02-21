@@ -7,9 +7,10 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 class DexEntryTableViewCell: UITableViewCell {
-    static let cellHeight: CGFloat = 64.0
+    static let cellHeight: CGFloat = 84.0
     static let baseOffset: CGFloat = 10.0
     static let reuseIdentifier = "DexEntryCell"
     
@@ -17,6 +18,14 @@ class DexEntryTableViewCell: UITableViewCell {
     private lazy var stackView: UIStackView = UIStackView(frame: .zero)
     private lazy var pkmnNameLabel: UILabel = UILabel(frame: .zero)
     private lazy var pkmnNumberLabel: UILabel = UILabel(frame: .zero)
+    
+    weak var viewModel: DexEntryViewModel? {
+        didSet {
+            updateDexEntryInfo()
+        }
+    }
+    
+    var entryNumber: Int?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -32,9 +41,31 @@ class DexEntryTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    override func prepareForReuse() {
+        pkmnNameLabel.text = nil
+        pkmnNumberLabel.text = nil
+        pkmnImageView.kf.cancelDownloadTask()
+        pkmnImageView.image = nil
+        viewModel = nil
+    }
+    
+    private func updateDexEntryInfo() {
+        guard let nationalID = entryNumber, viewModel != nil else {
+            return
+        }
+        pkmnNameLabel.text = viewModel?.pokemonName(with: nationalID)
+        pkmnNumberLabel.text = viewModel?.formattedEntryNumberText(nationalID)
+        if let url = viewModel?.artworkURLForEntry(nationalID) {
+            pkmnImageView.kf.setImage(with: url)
+        }
+        self.layoutSubviews()
+        
+    }
 
 }
 
+//MARK: - View Code
 extension DexEntryTableViewCell: ViewCodeConfiguration {
     func setupViewHierarchy() {
         self.contentView.addSubview(pkmnImageView)
@@ -63,10 +94,12 @@ extension DexEntryTableViewCell: ViewCodeConfiguration {
     }
     
     func configureViews() {
+        self.selectionStyle = .none
         pkmnImageView.contentMode = .scaleAspectFit
+        pkmnImageView.kf.indicatorType = .activity
         
-        pkmnNameLabel.font = .systemFont(ofSize: 17, weight: .bold)
-        pkmnNumberLabel.font = .systemFont(ofSize: 17, weight: .semibold)
+        pkmnNameLabel.font = .systemFont(ofSize: 20, weight: .bold)
+        pkmnNumberLabel.font = .systemFont(ofSize: 20, weight: .semibold)
         
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally

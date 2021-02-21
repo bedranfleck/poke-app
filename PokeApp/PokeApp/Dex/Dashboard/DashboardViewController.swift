@@ -8,36 +8,71 @@
 import UIKit
 import SnapKit
 
+
 class DashboardViewController: BaseViewController<DashboardViewModel> {
 
     private lazy var tableView = UITableView(frame: .zero, style: .plain)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.dataSource = self
+        tableView.delegate = self
+        viewModel?.delegate = self
         setupViews()
+        viewModel?.fetchNewDexPage()
     }
-    
 
 }
 
 // MARK: - Network Layer Events
 extension DashboardViewController: PokeAPIObserver {
     func pokeAPIDidUpdateState(_ state: PokeAPI.State) {
-        //Trigger loading view state
+        switch state {
+        //remove loading indicator and show errors, if any
+        case .idle(let error):
+            if let error = error {
+                let message = (error.raw() as NSError).userInfo["description"] as? String
+                let errorAlert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+                self.present(errorAlert, animated: true, completion: nil)
+                
+            }
+        default:
+            
+            print("Hit Load")
+        }
     }
 }
 
 extension DashboardViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 600
+        return viewModel?.entryCount() ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: DexEntryTableViewCell.reuseIdentifier, for: indexPath)
+        if let cell = cell as? DexEntryTableViewCell {
+            cell.entryNumber = indexPath.row + 1
+            cell.viewModel = viewModel
+        }
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let viewModel = viewModel else {
+            return
+        }
+        if indexPath.row == viewModel.entryCount()-1 {
+            viewModel.fetchNewDexPage()
+        }
+    }
+}
+
+extension DashboardViewController: DashboarViewModelDelegate {
+    func updateEntries() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
 }
 
 extension DashboardViewController: ViewCodeConfiguration {
@@ -55,6 +90,8 @@ extension DashboardViewController: ViewCodeConfiguration {
     }
     
     func configureViews() {
+        self.title = "National Dex"
+        
         if let navBar = self.navigationController?.navigationBar {
             navBar.prefersLargeTitles = true
             navBar.backgroundColor = .white
@@ -63,10 +100,10 @@ extension DashboardViewController: ViewCodeConfiguration {
         }
         self.view.backgroundColor = .white
         
-        self.title = "National Dex"
-        tableView.dataSource = self
+        
         tableView.rowHeight = DexEntryTableViewCell.cellHeight
         tableView.register(DexEntryTableViewCell.self, forCellReuseIdentifier: DexEntryTableViewCell.reuseIdentifier)
+        
     }
     
 }

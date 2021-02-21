@@ -20,4 +20,14 @@ struct DexPage: Codable {
 struct PokemonBasicInfo: Codable {
     let name: String?
     let url: String?
+    
+    func nationalDexNumber() -> Int? {
+        var components = url?.components(separatedBy: "/")
+        components?.popLast()
+        if let string = components?.last {
+            let number = Int(string)
+            return number
+        }
+        return nil
+    }
 }
