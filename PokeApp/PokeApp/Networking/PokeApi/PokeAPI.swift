@@ -89,6 +89,7 @@ class PokeAPI {
             if error != nil {
                 let networkError = NetworkError.from(error)
                 self.state = .idle(error: networkError)
+                completion(nil)
             } else {
                 guard let result = pokemon else {
                     self.state = .idle(error: .unknownError)

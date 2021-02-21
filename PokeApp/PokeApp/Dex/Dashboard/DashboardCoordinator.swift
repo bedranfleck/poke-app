@@ -34,16 +34,22 @@ class DashboardCoordinator: NSObject, Coordinator {
         window.makeKeyAndVisible()
     }
     
-    func didSelectPokemon() {
+    func didSelectPokemon(with dexNumber: Int) {
         guard let navController = navigationController else {
             fatalError("Lost reference to Navigation Controller")
         }
-        let detailCoordinator = PokemonDetailCoordinator(navigationController: navController, pokeAPI: pokeAPI)
-        childCoordinators.append(detailCoordinator)
-        detailCoordinator.start()
+        let detailCoordinator = PokemonDetailCoordinator(navigationController: navController, pokeAPI: pokeAPI, dexNumber: dexNumber)
+        addChild(detailCoordinator)
     }
     
-    func childDidFinish(_ child: Coordinator?) {
+    private func addChild(_ coordinator: Coordinator) {
+        if !childCoordinators.contains(where: {$0 === coordinator}) {
+            childCoordinators.append(coordinator)
+            coordinator.start()
+        }
+    }
+    
+    private func childDidFinish(_ child: Coordinator?) {
         for (index, coordinator) in childCoordinators.enumerated() {
             if coordinator === child {
                 childCoordinators.remove(at: index)

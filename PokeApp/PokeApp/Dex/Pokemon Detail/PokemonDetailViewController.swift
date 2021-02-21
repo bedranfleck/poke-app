@@ -9,21 +9,62 @@ import UIKit
 
 class PokemonDetailViewController: BaseViewController<PokemonDetailViewModel, PokemonDetailCoordinator> {
 
+    private lazy var tableView = UITableView(frame: .zero, style: .plain)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        tableView.dataSource = self
+        tableView.delegate = self
+        viewModel?.delegate = self
+        
+        viewModel?.fetchPokemon()
+        
+        setupViews()
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
+
+extension PokemonDetailViewController: PokemonDetailViewModelDelegate {
+    func viewModelDidUpdateState() {
+        tableView.reloadData()
+    }
+}
+
+extension PokemonDetailViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel?.numberOfSections() ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+    
+    
+}
+
+extension PokemonDetailViewController: ViewCodeConfiguration {
+    func setupViewHierarchy() {
+        view.addSubview(tableView)
+    }
+    
+    func setupConstraints() {
+        tableView.snp.makeConstraints { (make) in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.left.equalTo(view.safeAreaLayoutGuide.snp.left)
+            make.right.equalTo(view.safeAreaLayoutGuide.snp.right)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
+    }
+    
+    func configureViews() {
+        self.title = "Details"
+        self.view.backgroundColor = .white
+        
+        tableView.rowHeight = DexEntryTableViewCell.cellHeight
+        tableView.register(DexEntryTableViewCell.self, forCellReuseIdentifier: DexEntryTableViewCell.reuseIdentifier)
+        
+    }
+    
+}
+

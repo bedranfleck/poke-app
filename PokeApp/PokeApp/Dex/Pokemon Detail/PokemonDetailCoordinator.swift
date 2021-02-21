@@ -11,13 +11,11 @@ class PokemonDetailCoordinator: Coordinator {
     private(set) var childCoordinators: [Coordinator] = []
     private(set) var navigationController: UINavigationController?
     
-    private var pokeAPI: PokeAPI
-    private var pokemonDetailViewModel = PokemonDetailViewModel()
+    private var pokemonDetailViewModel: PokemonDetailViewModel!
     
-    
-    init(navigationController: UINavigationController, pokeAPI: PokeAPI) {
+    init(navigationController: UINavigationController, pokeAPI: PokeAPI, dexNumber: Int) {
         self.navigationController = navigationController
-        self.pokeAPI = pokeAPI
+        self.pokemonDetailViewModel = PokemonDetailViewModel(dexNumber: dexNumber, pokeAPI: pokeAPI)
     }
     
     func start() {

@@ -52,6 +52,10 @@ class DashboardViewModel: ViewModel {
         return pokemonEntries.count
     }
     
+    func dexNumberForEntry(_ nationalID: Int) -> Int? {
+        return dexEntryForNationalID(nationalID)?.nationalDexNumber()
+    }
+    
 }
 
 extension DashboardViewModel: DexEntryViewModel {
@@ -71,9 +75,8 @@ extension DashboardViewModel: DexEntryViewModel {
     }
     
     func artworkURLForEntry(_ nationalID: Int) -> URL? {
-        guard nationalID > 0 else { return nil }
         let baseUrl = Environment.artworkBaseURL
-        let pokemon = pokemonEntries[nationalID-1]
+        guard let pokemon = dexEntryForNationalID(nationalID) else { return nil }
         let path = pokemon.nationalDexNumber() ?? 0
         return baseUrl?.appendingPathComponent("\(path).png")
     }

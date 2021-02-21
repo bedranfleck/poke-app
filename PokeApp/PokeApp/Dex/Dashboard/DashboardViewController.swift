@@ -21,14 +21,22 @@ class DashboardViewController: BaseViewController<DashboardViewModel, DashboardC
         setupViews()
         viewModel?.fetchNewDexPage()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupLargeText()
+    }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        disableLargeText()
+    }
 }
 
 // MARK: - Network Layer Events
 extension DashboardViewController: PokeAPIObserver {
     func pokeAPIDidUpdateState(_ state: PokeAPI.State) {
         switch state {
-        //remove loading indicator and show errors, if any
         case .idle(let error):
             if let error = error {
                 let message = (error.raw() as NSError).userInfo["description"] as? String
@@ -65,6 +73,12 @@ extension DashboardViewController: UITableViewDataSource, UITableViewDelegate {
             viewModel.fetchNewDexPage()
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let dexNum = viewModel?.dexNumberForEntry(indexPath.row+1) {
+            coordinator?.didSelectPokemon(with: dexNum)
+        }
+    }
 }
 
 extension DashboardViewController: DashboarViewModelDelegate {
@@ -90,20 +104,30 @@ extension DashboardViewController: ViewCodeConfiguration {
     }
     
     func configureViews() {
-        self.title = "National Dex"
+        self.title = "Poor Man's Dex"
+        self.view.backgroundColor = .white
         
+        tableView.rowHeight = DexEntryTableViewCell.cellHeight
+        tableView.register(DexEntryTableViewCell.self, forCellReuseIdentifier: DexEntryTableViewCell.reuseIdentifier)
+        
+    }
+    
+    private func setupLargeText() {
         if let navBar = self.navigationController?.navigationBar {
             navBar.prefersLargeTitles = true
             navBar.backgroundColor = .white
             navBar.largeTitleTextAttributes =
                 [.foregroundColor: UIColor.blue]
         }
-        self.view.backgroundColor = .white
-        
-        
-        tableView.rowHeight = DexEntryTableViewCell.cellHeight
-        tableView.register(DexEntryTableViewCell.self, forCellReuseIdentifier: DexEntryTableViewCell.reuseIdentifier)
-        
+    }
+    
+    private func disableLargeText() {
+        if let navBar = self.navigationController?.navigationBar {
+            navBar.prefersLargeTitles = false
+            navBar.backgroundColor = .white
+            navBar.titleTextAttributes =
+                [.foregroundColor: UIColor.blue]
+        }
     }
     
 }
