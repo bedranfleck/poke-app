@@ -18,6 +18,9 @@ protocol DashboarViewModelDelegate: class {
 }
 
 class DashboardViewModel: ViewModel {
+    //Current number of entries on PokeApi.co
+    static let maxNumberOfEntries = 1118
+    
     private weak var pokeAPI: PokeAPI?
     // Stores basic info in dictionary keyed with the national dex number
     private var pokemonEntries: [PokemonBasicInfo] = []
@@ -28,6 +31,9 @@ class DashboardViewModel: ViewModel {
     }
     
     func fetchNewDexPage() {
+        guard entryCount() < DashboardViewModel.maxNumberOfEntries else {
+            return
+        }
         pokeAPI?.fetchDexPage(completion: { (pokemon) in
             if let pokemonInfo = pokemon {
                 _ = pokemonInfo.map {[weak self] in
