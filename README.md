@@ -30,3 +30,14 @@ I have used an Xcode Configuration file to define a base environment that is cur
   * Select a deployment target (either a connected iOS Device or simulator);
   * Hit the :play: button on the top bar, or `Cmd+R` on your keyboard;
   * Wait for the project to build and install to the selected target.
+
+## Why no RxSwift?
+
+As a professional with over three years of accumulated experience with RxSwift/RxCocoa/RxGestures (I will call these RxSwift from now, but they are separate libraries), I made a decision not to use a RxSwift for this project for some reasons, hereby listed :
+
+ 1. **Maintainability**: I find that while Rx libraries introduce very cool and unique ways to write code, and perform data binding and etc., it presents itself as something with a steep learning curve for Jr. developers who may be involved, and in general makes code more difficult to debug for those with less experience. Code tends to naturally get messier with time if not continuously taken care of, and RxSwift accelerates that, in my oppinion.
+ 2. **Dispose Bags**: RxSwift is a bit unique when it comes to setup. It requires the use of dispose bags to manage the way observables are disposed. The problem with this, is that it is dificult to determine exactly when to dispose of observables in some situations. While avoidable, this is a problem that can cause memory leaks fairly easily if one is not aware of how to handle the library.
+
+That said, RxSwift is a pretty cool set of libraries and presents a really nice way to handle some problems. Using it (or not) must always be a team choice, considering all the gives and takes that it provides, since you don't really want to use RxSwift inside a single UIViewController or Module (and most often you won't be able to isolate it to that scope).
+
+Thank you for reading!
