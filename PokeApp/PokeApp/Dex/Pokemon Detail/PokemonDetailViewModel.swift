@@ -8,7 +8,7 @@
 import Foundation
 
 protocol PokemonDetailViewModelDelegate: class {
-    func viewModelDidUpdateState()
+    func viewModelDidUpdateState(newState: PokemonDetailViewModel.State)
 }
 
 class PokemonDetailViewModel: ViewModel {
@@ -68,14 +68,14 @@ class PokemonDetailViewModel: ViewModel {
         return sections[row]
     }
     
-    func emptyStateType() -> EmptyStateViewType {
+    func emptyStateType() -> EmptyStateViewType? {
         switch state {
         case .loading:
-            return .none
+            return nil
         case .loadError:
             return .error
         default:
-            return .none
+            return nil
         }
     }
     
@@ -95,7 +95,7 @@ class PokemonDetailViewModel: ViewModel {
     }
     
     private func updateView() {
-        delegate?.viewModelDidUpdateState()
+        delegate?.viewModelDidUpdateState(newState: self.state ?? .loadError)
     }
     
 }

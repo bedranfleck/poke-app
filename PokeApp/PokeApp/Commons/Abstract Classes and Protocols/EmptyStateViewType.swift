@@ -9,5 +9,4 @@ import Foundation
 
 enum EmptyStateViewType {
     case error
-    case none
 }

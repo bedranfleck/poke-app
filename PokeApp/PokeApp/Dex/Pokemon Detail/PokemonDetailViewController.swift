@@ -7,8 +7,8 @@
 
 import UIKit
 
-class PokemonDetailViewController: BaseViewController<PokemonDetailViewModel, PokemonDetailCoordinator> {
-
+class PokemonDetailViewController: BaseViewController<PokemonDetailViewModel, PokemonDetailCoordinator>, LoadTaskIndicatorView {
+    var activityIndicator = ActivityIndicatorViewController()
     private lazy var tableView = UITableView(frame: .zero, style: .plain)
     
     override func viewDidLoad() {
@@ -38,21 +38,26 @@ class PokemonDetailViewController: BaseViewController<PokemonDetailViewModel, Po
 }
 
 extension PokemonDetailViewController: PokemonDetailViewModelDelegate {
-    func viewModelDidUpdateState() {
-        tableView.reloadData()
+    func viewModelDidUpdateState(newState: PokemonDetailViewModel.State) {
+        switch newState {
+        case .loadError:
+            removeIndicatorView()
+            applyEmptyState()
+            tableView.reloadData()
+        case .loadSuccess:
+            removeIndicatorView()
+            removeEmptyState()
+            tableView.reloadData()
+        case .loading:
+            showIndicatorView()
+            tableView.separatorStyle = .none
+        }
     }
 }
 
 extension PokemonDetailViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let rowCount = viewModel?.numberOfSections() ?? 0
-        if rowCount == 0 {
-            applyEmptyState()
-        } else {
-            removeEmptyState()
-        }
-        
-        return rowCount
+        return viewModel?.numberOfSections() ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

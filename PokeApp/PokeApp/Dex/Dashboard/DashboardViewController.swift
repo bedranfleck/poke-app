@@ -9,8 +9,9 @@ import UIKit
 import SnapKit
 
 
-class DashboardViewController: BaseViewController<DashboardViewModel, DashboardCoordinator> {
-
+class DashboardViewController: BaseViewController<DashboardViewModel, DashboardCoordinator>, LoadTaskIndicatorView {
+    
+    var activityIndicator = ActivityIndicatorViewController()
     private lazy var tableView = UITableView(frame: .zero, style: .plain)
     
     override func viewDidLoad() {
@@ -29,15 +30,16 @@ extension DashboardViewController: PokeAPIObserver {
     func pokeAPIDidUpdateState(_ state: PokeAPI.State) {
         switch state {
         case .idle(let error):
+            removeIndicatorView()
             if let error = error {
                 let message = (error.raw() as NSError).userInfo["description"] as? String
                 let errorAlert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
                 self.present(errorAlert, animated: true, completion: nil)
-                
             }
+        case .loadingDex:
+            showIndicatorView()
         default:
-            
-            print("Hit Load")
+            break
         }
     }
 }
