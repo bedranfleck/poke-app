@@ -60,7 +60,7 @@ class DashboardViewModel: ViewModel {
 
 extension DashboardViewModel: DexEntryViewModel {
     private func dexEntryForNationalID(_ nationalID: Int) -> PokemonBasicInfo? {
-        guard nationalID > 0 else {
+        guard nationalID > 0, nationalID <= pokemonEntries.count else {
             return nil
         }
         return pokemonEntries[nationalID-1]
