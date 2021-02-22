@@ -11,7 +11,7 @@ import SnapKit
 
 class DashboardViewController: BaseViewController<DashboardViewModel, DashboardCoordinator>, LoadTaskIndicatorView {
     
-    var activityIndicator = ActivityIndicatorViewController()
+    private(set) var activityIndicator = ActivityIndicatorViewController()
     private lazy var tableView = UITableView(frame: .zero, style: .plain)
     
     override func viewDidLoad() {
@@ -115,6 +115,5 @@ extension DashboardViewController: ViewCodeConfiguration {
                 [.foregroundColor: UIColor.blue]
         }
     }
-    
     
 }

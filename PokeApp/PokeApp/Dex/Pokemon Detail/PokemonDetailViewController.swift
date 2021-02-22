@@ -7,9 +7,9 @@
 
 import UIKit
 
-class PokemonDetailViewController: BaseViewController<PokemonDetailViewModel, PokemonDetailCoordinator>, LoadTaskIndicatorView {
-    var activityIndicator = ActivityIndicatorViewController()
+class PokemonDetailViewController: BaseViewController<PokemonDetailViewModel, PokemonDetailCoordinator> {
     private lazy var tableView = UITableView(frame: .zero, style: .plain)
+    private lazy var refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,17 +39,15 @@ class PokemonDetailViewController: BaseViewController<PokemonDetailViewModel, Po
 
 extension PokemonDetailViewController: PokemonDetailViewModelDelegate {
     func viewModelDidUpdateState(newState: PokemonDetailViewModel.State) {
+        refreshControl.endRefreshing()
         switch newState {
         case .loadError:
-            removeIndicatorView()
             applyEmptyState()
             tableView.reloadData()
         case .loadSuccess:
-            removeIndicatorView()
             removeEmptyState()
             tableView.reloadData()
         case .loading:
-            showIndicatorView()
             tableView.separatorStyle = .none
         }
     }
@@ -117,6 +115,7 @@ extension PokemonDetailViewController: UITableViewDataSource, UITableViewDelegat
 extension PokemonDetailViewController: ViewCodeConfiguration {
     func setupViewHierarchy() {
         view.addSubview(tableView)
+        tableView.addSubview(refreshControl)
     }
     
     func setupConstraints() {
@@ -141,8 +140,15 @@ extension PokemonDetailViewController: ViewCodeConfiguration {
         tableView.register(PokemonHeightWeightCell.self, forCellReuseIdentifier: PokemonHeightWeightCell.reuseIdentifier)
         tableView.register(PokemonStatsCell.self, forCellReuseIdentifier: PokemonStatsCell.reuseIdentifier)
         
-        tableView.bounces = false
+        tableView.bounces = true
+        tableView.allowsSelection = false
+        
+        refreshControl.attributedTitle = NSAttributedString(string: "Reload")
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
         
     }
     
+    @objc private func refresh(_ sender: AnyObject) {
+        viewModel?.fetchPokemon()
+    }
 }
