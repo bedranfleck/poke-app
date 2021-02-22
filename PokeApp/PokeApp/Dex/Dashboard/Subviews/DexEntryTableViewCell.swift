@@ -95,11 +95,15 @@ extension DexEntryTableViewCell: ViewCodeConfiguration {
     
     func configureViews() {
         self.selectionStyle = .none
+        self.backgroundColor = .white
+        
         pkmnImageView.contentMode = .scaleAspectFit
         pkmnImageView.kf.indicatorType = .activity
         
         pkmnNameLabel.font = .systemFont(ofSize: 20, weight: .bold)
+        pkmnNameLabel.textColor = .black
         pkmnNumberLabel.font = .systemFont(ofSize: 20, weight: .semibold)
+        pkmnNumberLabel.textColor = .black
         
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally

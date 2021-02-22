@@ -22,15 +22,6 @@ class DashboardViewController: BaseViewController<DashboardViewModel, DashboardC
         viewModel?.fetchNewDexPage()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        setupLargeText()
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        disableLargeText()
-    }
 }
 
 // MARK: - Network Layer Events
@@ -109,25 +100,19 @@ extension DashboardViewController: ViewCodeConfiguration {
         
         tableView.rowHeight = DexEntryTableViewCell.cellHeight
         tableView.register(DexEntryTableViewCell.self, forCellReuseIdentifier: DexEntryTableViewCell.reuseIdentifier)
+        setupLargeText()
         
     }
     
     private func setupLargeText() {
         if let navBar = self.navigationController?.navigationBar {
             navBar.prefersLargeTitles = true
+            navigationItem.largeTitleDisplayMode = .always
             navBar.backgroundColor = .white
             navBar.largeTitleTextAttributes =
                 [.foregroundColor: UIColor.blue]
         }
     }
     
-    private func disableLargeText() {
-        if let navBar = self.navigationController?.navigationBar {
-            navBar.prefersLargeTitles = false
-            navBar.backgroundColor = .white
-            navBar.titleTextAttributes =
-                [.foregroundColor: UIColor.blue]
-        }
-    }
     
 }

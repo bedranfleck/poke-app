@@ -8,7 +8,6 @@
 import Foundation
 
 enum EmptyStateViewType {
-    case loading
     case error
     case none
 }

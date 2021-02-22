@@ -30,7 +30,7 @@ class PokemonDetailViewModel: ViewModel {
     
     private let pokemonDexNumber: Int
     private let pokeAPI: PokeAPI
-    private var pokemon: Pokemon?
+    private(set) var pokemon: Pokemon?
     weak var delegate: PokemonDetailViewModelDelegate?
     
     private var sections: [CellType] = []
@@ -71,7 +71,7 @@ class PokemonDetailViewModel: ViewModel {
     func emptyStateType() -> EmptyStateViewType {
         switch state {
         case .loading:
-            return .loading
+            return .none
         case .loadError:
             return .error
         default:
