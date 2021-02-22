@@ -10,11 +10,13 @@ PODS:
     - Result (~> 4.1)
   - Nimble (9.0.0)
   - Result (4.1.0)
+  - SnapKit (5.0.1)
 
 DEPENDENCIES:
   - Kingfisher
   - Moya
   - Nimble
+  - SnapKit
 
 SPEC REPOS:
   trunk:
@@ -23,6 +25,7 @@ SPEC REPOS:
     - Moya
     - Nimble
     - Result
+    - SnapKit
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
@@ -30,7 +33,8 @@ SPEC CHECKSUMS:
   Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
   Nimble: 3b4ec3fd40f1dc178058e0981107721c615643d8
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: 9d863583d39f7abd50867944abe4510ce361d2a1
+PODFILE CHECKSUM: fdae05524b7e0038c706c1364fcc8037cf0a033b
 
 COCOAPODS: 1.10.1
